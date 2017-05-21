@@ -31,7 +31,7 @@ class attribute(object):
 		else:
 			human = self._tohuman()
 			if str == bytes: #Is python 2
-				if type(human) == unicode:
+				if type(human) == str:
 					return human.encode('utf-8')
 			return str(human)
 
@@ -39,7 +39,7 @@ class attribute(object):
 		if (type(self._tohuman()) == str):
 			return self._tohuman().decode('utf-8')
 		else:
-			return unicode(self._tohuman())
+			return str(self._tohuman())
 
 	def __repr__(self):
 		if type(self._tohuman()) == str:
@@ -107,7 +107,7 @@ class attribute(object):
 
 	def _tovalue(self):
 		try: #Fix to have python 2.x and python 3.x compatibility
-			typestr = unicode #On python 3 unicode type case not exist
+			typestr = str #On python 3 unicode type case not exist
 			unicodebase = True #is python 2
 		except:
 			typestr = str

@@ -23,7 +23,7 @@ class Option(object):
 		if self.is_password:
 			self.value=getpass.getpass(self.__doc__+': ')
 		else:
-			self.value=input(self.__doc__+': ')
+			self.value=eval(input(self.__doc__+': '))
 
 	def __iter__(self):
 		return iter(self.value)

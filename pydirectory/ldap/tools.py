@@ -1,16 +1,16 @@
 class setQuery(object):
 	specialFields = {}
 	operators = {
-		'default' : u'({field}={value})',
+		'default' : '({field}={value})',
 		'conditions': {
-			'gt' : u'({field}>{value})',
-			'ge' : u'({field}>={value})',
-			'lt' : u'({field}<{value})',
-			'le' : u'({field}<={value})',
-			'eq' : u'({field}={value})',
+			'gt' : '({field}>{value})',
+			'ge' : '({field}>={value})',
+			'lt' : '({field}<{value})',
+			'le' : '({field}<={value})',
+			'eq' : '({field}={value})',
 		},
 		'wrapper' : {
-			'not' : u'(!{query})'
+			'not' : '(!{query})'
 		}
 	}
 
@@ -19,8 +19,8 @@ class setQuery(object):
 
 	def __call__(self,oper='and',**fields):
 		result = ''
-		for field,value in fields.items():
-			if field in self.specialFields.keys():
+		for field,value in list(fields.items()):
+			if field in list(self.specialFields.keys()):
 				if type(self.specialFields[field]) == dict:
 					result += self.specialFields[field][value]
 				else:
@@ -32,7 +32,7 @@ class setQuery(object):
 				continue
 
 			wrapper = False
-			for wrap in self.operators['wrapper'].keys():
+			for wrap in list(self.operators['wrapper'].keys()):
 				if field.find('__'+wrap) > -1:
 					field = field.replace('__'+wrap,'')
 					wrapper = self.operators['wrapper'][wrap]
@@ -58,6 +58,6 @@ class setQuery(object):
 			result += query
 
 		if oper == 'and':
-			return u'(&{query})'.format(query=result)
+			return '(&{query})'.format(query=result)
 		if oper == 'or'	:
-			return u'(|{query})'.format(query=result)
+			return '(|{query})'.format(query=result)

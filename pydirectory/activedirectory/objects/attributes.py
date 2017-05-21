@@ -4,7 +4,7 @@ class sAMAccountName(attribute):
 	def _toraw(self,value):
 		checklen = False
 		if str == bytes: #is python2
-			if isinstance(value,basestring):
+			if isinstance(value,str):
 				checklen = True
 		else:
 			if isinstance(value,str):
@@ -35,9 +35,9 @@ class member(attribute):
 					fieldname = 'member;range=%(init)s-%(end)s' % {"init":init,"end":end-1}
 					fieldwildcard = 'member;range=%(init)s-*' % {"init":init}
 					result = self._objects.search(dn=self._id,attributes=[fieldname])[0]
-					if fieldname in result.attributes.keys():
+					if fieldname in list(result.attributes.keys()):
 						member.extend(result.attributes[fieldname])
-					if fieldwildcard in result.attributes.keys():
+					if fieldwildcard in list(result.attributes.keys()):
 						member.extend(result.attributes[fieldwildcard])
 					init=end
 				except self._exceptions.LDAPOperationsErrorResult:
@@ -228,7 +228,7 @@ class formattime(attribute):
 				if str != bytes:  # python3
 					timezone = OffsetTzInfo.OffsetTzInfo((timezone_hour * 60 + timezone_minute) * (1 if sep == b'+' else -1), 'UTC' + str(sep + offset, encoding='utf-8'))
 				else:
-					timezone = OffsetTzInfo.OffsetTzInfo((timezone_hour * 60 + timezone_minute) * (1 if sep == b'+' else -1), unicode('UTC' + sep + offset, encoding='utf-8'))
+					timezone = OffsetTzInfo.OffsetTzInfo((timezone_hour * 60 + timezone_minute) * (1 if sep == b'+' else -1), str('UTC' + sep + offset, encoding='utf-8'))
 
 			try:
 				return datetime(year=year,

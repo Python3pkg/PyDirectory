@@ -39,7 +39,7 @@ class search (actions.search):
 				raise self._exceptions.LDAPError(str(c.result))
 			cookie = c.result['controls']['1.2.840.113556.1.4.319']['value']['cookie']
 			for entry in c.entries:
-				entry.entry_raw_attributes[u'dn'] = [entry.entry_dn]
+				entry.entry_raw_attributes['dn'] = [entry.entry_dn]
 				try:
 					entry.entry_raw_attributes['container'] = [",".join(entry.entry_raw_attributes['dn'][0].split(',')[1:])]
 				except TypeError: #python 3.0 compatibility

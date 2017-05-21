@@ -19,7 +19,7 @@ class object(object):
 
 	def __setitem__(self,key,value):
 		if str == bytes:
-			if (type(value) == str) or (type(value) == unicode):
+			if (type(value) == str) or (type(value) == str):
 				if value.strip() == '':
 					value = None
 		else:
@@ -85,10 +85,10 @@ class object(object):
 		return iter(self._attrs)
 
 	def __dir__(self):
-		return self._attrs.keys()
+		return list(self._attrs.keys())
 
 	def _update(self,data):
-		for attr,value in data.items():
+		for attr,value in list(data.items()):
 			self[attr] = value
 
 	def __str__(self):
@@ -98,7 +98,7 @@ class object(object):
 		return repr(self._attrs['dn'])
 
 	def items(self):
-		return self._attrs.items()
+		return list(self._attrs.items())
 
 	@property
 	def attributes(self):
